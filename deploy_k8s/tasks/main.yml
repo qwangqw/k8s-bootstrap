@@ -1,0 +1,17 @@
+---
+
+- name: git clone kubernetes repo
+  git:
+    repo: https://github.com/kubernetes/kubernetes.git 
+    dest: ~/.
+    depth: 1
+
+# change default settings
+
+# run kube-up.sh
+
+# if kube-up.sh fails, run kube-down.sh
+
+# test all nodes are ready
+
+# deploy k8s addons

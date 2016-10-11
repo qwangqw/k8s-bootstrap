@@ -1,0 +1,25 @@
+---
+- name: copy the private key
+  copy:
+    src: templates/qin_key.pem
+    dest: ~/.ssh/id_rsa
+  when:  inventory_hostname == "deploy"
+
+- name: add public DNS server
+  lineinfile:
+    dest: /etc/resolvconf/resolv.conf.d/head
+    line: "nameserver 8.8.8.8"
+    state: present
+    insertafter: EOF 
+  when: inventory_hostname != "deploy"
+
+- name: regenereate resolv.conf
+  shell: resolvconf -u
+  when: inventory_hostname != "deploy"
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+
+
+- include: apt_install.yml

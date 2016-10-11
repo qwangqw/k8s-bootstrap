@@ -1,0 +1,9 @@
+---
+- name: install dependency on deploy host
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  when: inventory_hostname == "deploy"
+  with_items:
+    - software-properties-common
+    - python-passlib
